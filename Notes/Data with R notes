@@ -1,0 +1,232 @@
+
+Data visualization with R
+
+Week 1
+
+Introduction
+
+    • Install R and Rstudio
+    • Manipulate data in R
+    • Use functions in R
+    • Import data files into R
+    • Create visualizations using Base R
+
+3 modules in class: 
+    • Introduction to R
+    • Introduction to tiddyverse
+    • Introduction to Rmarkdown (Generate reproducable data reports)
+
+Introduction to R and Software Installation
+
+R requires you to write R code. Spreadsheets softwares like tableau, doesn’t. 
+Data management (wrangling) is crucial. Good management leads too instant visualization. 
+
+Rstudio is an integrated development environment (IDE). Rstudio is an editing program that make write R code easier. 
+
+Basic R, Part 1
+(see basic R cheat sheet)
+
+Write commands in the console. 
+Save code by creating new scrips. 
+
+Highlight commands and press shortcut (ctrl+enter) to run commands. 
+Comment a line by using #########. R will skip one line and run the next command. 
+    • Strings in quotation marks
+    • ####save the output of a command to an object
+####save the output of a command to an object
+a <- 2+2
+my_a <- 2+2
+my.a <- 2+2
+Follow with Lecture_Basic R
+
+Classes
+
+Data in objects, in R, are given a class (depending on the type of data inside the vertor/list). The class function will tell you which one your vector falls into. 
+
+Logical vectors: True/false value
+Numeric vectors: Numbers
+Character vectors: Strings(?)
+Factors vectors (special type of Character vector)(tricky): character vector with ordinal value assigned to them, called levels. 
+
+Combining numbers and characters in a vector, numbers will be converted to strings, to characters.
+It’s bad practice. 
+
+You can change vectors to certain classes with functions as.character(…vector to change), as.logical(…) as.numeric(...) and as.factor(…).
+
+Functions
+
+Set of commands to tell R, what to do with input. 
+
+See Function R file from course. 
+
+Yet, there is no need to write functions yourself. All you need to do is use the packages online. 
+Great code is already written and ready to use. 
+
+Use Alt + - , for <- (arrow shortcut)
+ Press TAB to list possible functions
+
+
+
+Dataframes
+
+DEF: data tables (spreadsheets) stored in R environment. (with colomn headers, titles, possibity to add or substract colomns or rows). 
+
+Create dataframes by compining vectors together. 
+
+Follow lecture in R
+
+Run ?function_name for documentation on a function
+
+
+Import data in Rstudio
+
+Easiest kind of data to do visualization with is rectangular data (has rows and columns).
+Very common type of rectangular dataset is a camma separeted values file .CSV
+
+In session, set working directory and choose directory of .CSV files. 
+In linux, directory ex: ~/Documents/Carriere/GUXR/Formation/Data with R/Test R files/… 
+
+Clean data variables with broom when global environment is crowded. Run the code to get those back up in the environment. 
+
+If persisting technical problem, restart R in Rstudio in Session Restart R. 
+
+Base R visualization
+
+When you plot data, 2 types of plot: 
+    • Univariate: plots destribution of values of a single variables (or a single vector) in R
+    • Multivariate: Plots the value ou two or more values in relation to each other. 
+
+Univariate ex: Histagram. Bar chart of frequencies with different values of the vector. 
+
+Follow lecture plots in R
+
+Generate random numbers with rnorm, rpois,rbinom and runif.
+
+Ex: variable1 ← runif(50,0,100) . Pull 50 values randomly, between 0 and 100
+
+You can export the graph in Plot, export, save image!
+
+Yet, base are illustrations are not ideal. Plots are great for exploratory analysis, but are not publication ready. 
+
+Good links, but don’t try to learn everything at once!!!
+
+http://www.cookbook-r.com/Graphs/Histogram_and_density_plot/
+http://www.cookbook-r.com/Graphs/Box_plot/ 
+http://www.cookbook-r.com/Graphs/Scatterplot/ 
+
+Introducing the tidyverse and importing dataframes
+
+data wrangling functions, reshaping to meet your needs. 
+
+DEF Tidyverse: set of R packages including many commands to manage and visualize data. 
+
+
+This Tidy data definition is the best possible rectangular dataset disposition. 
+
+Importing Data
+
+installing tidyverse
+Load the tidyverse library : Library(tidyverse)
+
+Codebook: explains what all the answer means to the survey question[in csv = numbers. In codebook = answers to questions written]! CCES_sample_codebook. Ideal circumstance to finding data
+
+Understanding documentation and codebook is essential to data wrangling. ! Good practices in data science. 
+
+In tidyverse, read_csv (R basic = read.csv) produces a tible rather than a dataframe. Tibbles work better for the tidyverse. 
+Ex: shows the top 10 rows, not everything (user friendly). Many features of tibbles in tidyverse prevents mistakes from user. 
+
+You can cover dataframes to tibbles and vice versa using as.data.frame() or as_tibble(). 
+
+First step of wrangling data: decide on blank cells in dataset. Careful, you may have a lot of blank.
+Easiest, but not necessarely best, is droping rows with blanks: drop_na()
+
+
+
+Important information about tidyverse packages: 
+https://tibble.tidyverse.org/
+https://tibble.tidyverse.org/articles/tibble.html 
+https://readr.tidyverse.org/ 
+https://readr.tidyverse.org/articles/readr.html 
+https://tidyr.tidyverse.org/ 
+https://tidyr.tidyverse.org/articles/tidy-data.html 
+
+Importing data Part 2
+
+create smaller datasets with the sections that you want with the filter function. 
+Filter(datasource,condition for the filter). Conditions will only pull rows that met condition in a specified column.
+In lecture, filter(cces,gender==2)
+
+dim command, for dimension of tibble. 
+
+Add 2 filters. filter(ccess,gender==2 & pid7>4)
+
+####select certain columns from the data
+
+select(republican_women,"educ","employ")
+
+Piping: compining different commandes and filters to meet your needs. Piping is one line of text, combining many. %>%
+
+####combine multiple commands using piping
+
+#x %>% f(y) is the same as f(x, y) 
+#y %>% f(x, ., z) is the same as f(x, y, z)
+
+see how to recode variables and many other wrangling commands with lecture materials 
+
+leaving values out in the recode function will be recorded as missing data. Complete directions for the function needed to recode properly. Left side of = is former value, right side of = is new desired value. ‘1’= “democrat”. Punctuation is crucial to recode.
+
+Rename function (nameofdataset,newnametocolumn=oldnameofcolumn)
+
+Add values & mutate… see cheat sheet or lecture video. 
+
+Arrange: quick tables, equivalent of sort(R basic). Change the order of the rows, based on the values of columns.
+
+Group: changes how tibbles interact with other function in tidyverse.  Very useful with other functions
+
+Summarize: Reduce multiple values to one. Great in conjunction with group function. Generate summary statistics of columns in datasets, like means, medians, standard deviations, etc. 
+
+Ex: summarize(nameofdataset,nameofnewcolumn=Rfunction_tocreate_desirednumber)
+Ex: summarize(cces,mean_pid7=mean(pid7))
+
+See R for data science Book chapter reference: https://r4ds.had.co.nz/transform.html
+
+
+See Dplyr Function Reference! 
+https://dplyr.tidyverse.org/reference/index.html#section-one-table-verbs
+https://dplyr.tidyverse.org/reference/index.html#section-two-table-verbs
+
+R markdown
+Is a file containing text, but includes R code and visualization. Others can replicate, from scratch, the same process you used. .RMD, in contrast to R code files, .R.
+
+## are not comments, its a way to format text that follows. Two pounds ## = bold header. Asteriscs ** means bold in paragraph. 
+R code chunks are separated by 3 apostrophes ’’’ . R code is between {…}, and a title for the r code chunk follows
+
+echo=False . Means to hide the raw code in final document. You won’t see the code, but you will see the output. 
+
+Really powerful pdf creater, and incredible for research transperancy. Reproducable data science!
+
+More at this link : https://r4ds.had.co.nz/r-markdown.html & https://rmarkdown.rstudio.com/lesson-1.html 
+
+R markdown format (special synthax)
+
+See lecture’s rmd file. As example. 
+
+Put data file and RMD file in same folder! Need to be on same place. 
+
+With Knitr packages loaded, use the kable function to easily convert input to a table. Great for tables generated with table function and input with summarize function in tidyverse. 
+
+See R Markdown: The Definitive Guide - https://bookdown.org/yihui/rmarkdown/basics.html 
+
+Ggplot2
+
+Very powerful for data visualization. Production quality visualization. 
+
+For beginners, you can use qplot (quick ggplot). 
+
+In qplot, specify x and y aesthetics. (what data to map in axes)
+ see lecture’s table-and figure-markdown. RMD
+
+Then, tell qplot what figure you want to draw. Called “Geometries”. Basic: histogram, density, boxplot, point and line. 
+ see lecture’s table-and figure-markdown. RMD
+
+See university of california business analytics R programming guide. & also https://ggplot2.tidyverse.org/reference/qplot.html
