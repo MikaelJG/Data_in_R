@@ -1,0 +1,98 @@
+
+R requires you to write R code. Spreadsheets softwares like tableau, doesn’t.
+
+Rstudio is an integrated development environment (IDE). Rstudio is an editing program that make write R code easier. 
+
+In Rstudio, access documentation by ?Function ?sum.
+
+##Classes
+
+Data in objects, in R, are given a class (depending on the type of data inside the vertor/list). The class function will tell you which one your vector falls into. 
+
+Logical vectors: True/false value
+Numeric vectors: Numbers
+Character vectors: Strings(?)
+Factors vectors (special type of Character vector)(tricky): character vector with ordinal value assigned to them, called levels. 
+
+##Functions
+
+Yet, there is no need to write functions yourself. All you need to do is use the packages online. 
+Great code is already written and ready to use. 
+
+##Dataframes
+
+DEF: data tables (spreadsheets) stored in R environment. (with colomn headers, titles, possibity to add or substract colomns or rows). 
+
+Create dataframes by compining vectors together. 
+
+##Import data in Rstudio
+
+Easiest kind of data to do visualization with is rectangular data (has rows and columns).
+Very common type of rectangular dataset is a camma separeted values file .CSV
+
+##Base R visualization
+
+When you plot data, 2 types of plot: 
+    • Univariate: plots destribution of values of a single variables (or a single vector) in R
+    • Multivariate: Plots the value ou two or more values in relation to each other. 
+
+Univariate ex: Histagram. Bar chart of frequencies with different values of the vector. 
+
+##Introducing the tidyverse and importing dataframes
+
+####Importing Data
+
+Codebook: explains what all the answer means to the survey question[in csv = numbers. In codebook = answers to questions written]! CCES_sample_codebook. Ideal circumstance to finding data
+
+Understanding documentation and codebook is essential to data wrangling. ! Good practices in data science. 
+
+In tidyverse, read_csv (R basic = read.csv) produces a tible rather than a dataframe. Tibbles work better for the tidyverse.
+
+##Wrangling Functions
+
+First step of wrangling data: decide on blank cells in dataset. Careful, you may have a lot of blank.
+Easiest, but not necessarely best, is droping rows with blanks: drop_na()
+
+create smaller datasets with the sections that you want with the filter function. Filter(datasource,column==number)/ filter(_dataset,gender==2 & pol>4)
+
+> Rename function (nameofdataset,newnametocolumn=oldnameofcolumn)
+> Add values & mutate…
+> Arrange: quick tables, equivalent of sort(R basic). Change the order of the rows, based on the values of columns. sorted_by_gender_and_party <- cces %>% arrange(gender,pid7)
+> Group: changes how tibbles interact with other function in tidyverse.  Very useful with other functions
+grouped_gender_pid7 <- cces %>% group_by(gender,pid7)
+> Summarize: Reduce multiple values to one. Great in conjunction with group function. Generate summary statistics of columns in datasets, like means, medians, standard deviations, etc. 
+> summarise(filt_dat, 'Mean Religion Imp.' = mean(pew_religimp), 'Median Religion Imp.' = median(pew_religimp), 'Standard Dev. Religion Imp.' = sd(pew_religimp))
+> table(filt_dat$investor) create a frequency table
+> ####recode variables recode(dat$CC18_325d,'1'=1, '2'=0)
+####rename variables
+test <- rename(cces,trump_approval=CC18_308a)
+####calculate new numeric variables
+rec_sen1_01 <- recode(cces$CC18_310b,`1`=0,`5`=0,`2`=1,`3`=1,`4`=1)
+rec_sen2_01 <- recode(cces$CC18_310c,`1`=0,`5`=0,`2`=1,`3`=1,`4`=1)
+cces$rec_sen1_01<- rec_sen1_01
+cces$rec_sen2_01<- rec_sen2_01
+cces <- mutate(cces, know_sens=rec_sen1_01+rec_sen2_01)
+cces$know_sens
+
+
+####select certain columns from the data
+select(republican_women,"educ","employ")
+> qplot(x=pid7, data=dat, geom="histogram",ylab="Count",xlab="Seven-Point Party ID")
+
+##Modify dataframes
+
+adding a row. new_row <- c(1000,2000,3000,4000)
+combining two dataframes with cbind
+
+#### Dplyr Function Reference! 
+https://dplyr.tidyverse.org/reference/index.html#section-one-table-verbs
+https://dplyr.tidyverse.org/reference/index.html#section-two-table-verbs
+
+#### Ggplot2
+
+In qplot, specify x and y aesthetics. (what data to map in axes)
+ see lecture’s table-and figure-markdown. RMD
+
+Then, tell qplot what figure you want to draw. Called “Geometries”. Basic: histogram, density, boxplot, point and line. 
+
+See university of california business analytics R programming guide. & also https://ggplot2.tidyverse.org/reference/qplot.html
